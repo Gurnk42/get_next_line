@@ -1,7 +1,5 @@
 #include "get_next_line.h"
-//
-#include <stdio.h>
-//
+
 char	*read_file(int *ret, char *buf, const int fd)
 {
 	char	buffer[BUFF_SIZE + 1];
@@ -9,13 +7,10 @@ char	*read_file(int *ret, char *buf, const int fd)
 
 	*ret = read(fd, buffer, BUFF_SIZE);
 	buffer[*ret] = '\0';
-	printf("RET: '%d'", *ret);
-	//printf("\nbuffer : '%s'", buffer);
 	if (buf[0] != '\0')
 		tmp = ft_strjoin(buf, buffer);
 	else
 		tmp = ft_strdup(buffer);
-	printf("\ntmp : '%s'", tmp);
 	ft_strclr(buf);
 	return (tmp);
 }
@@ -32,6 +27,7 @@ int	get_next_line(int const fd, char **line)
 	if (buf[0] == '\0')
 		buf = ft_strnew(0);
 	*line = ft_strnew(0);
+	ft_strclr(*line);
 	ret = 1;
 	while (ret > 0)
 	{
@@ -40,21 +36,10 @@ int	get_next_line(int const fd, char **line)
 		{
 			*str = '\0';
 			buf = ft_strdup(str + 1);
+			*line = ft_strjoin(*line, cpy);
+			return (1);
 		}
 		*line = ft_strjoin(*line, cpy);
-		printf("line: '%s'", *line);
 	}
 	return (ret);
-}
-
-int main()
-{
-	setbuf(stdout, NULL);
-	char	**line = (char **)malloc(sizeof(**line));
-
-	if (get_next_line(0, line) == -1)
-		printf("ERROR");
-	printf("YEP");
-	printf("LINE: %s", *line);
-	return (0);
 }
