@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ebouther <ebouther@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/12/03 15:04:35 by ebouther          #+#    #+#             */
+/*   Updated: 2015/12/03 15:07:18 by ebouther         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 static t_read	*ft_search_lst(t_read **lst, int fd)
@@ -14,7 +26,7 @@ static t_read	*ft_search_lst(t_read **lst, int fd)
 	return (tmp);
 }
 
-static t_read	*ft_newlst(char	*buf, int fd)
+static t_read	*ft_newlst(char *buf, int fd)
 {
 	t_read	*list;
 
@@ -54,7 +66,7 @@ static t_read	*ft_ret_lst(int fd, char **line, t_read **lst)
 	return (new);
 }
 
-static char	*ft_read_file(int *ret, t_read *lst, const int fd)
+static char		*ft_read_file(int *ret, t_read *lst, const int fd)
 {
 	char	buffer[BUFF_SIZE + 1];
 	char	*tmp;
@@ -69,7 +81,7 @@ static char	*ft_read_file(int *ret, t_read *lst, const int fd)
 	return (tmp);
 }
 
-int			get_next_line(int const fd, char **line)
+int				get_next_line(int const fd, char **line)
 {
 	static t_read	*lst;
 	t_read			*tmp;
