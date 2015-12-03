@@ -6,7 +6,7 @@
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 16:31:47 by ebouther          #+#    #+#             */
-/*   Updated: 2015/11/23 16:32:27 by ebouther         ###   ########.fr       */
+/*   Updated: 2015/12/03 15:08:13 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ typedef struct		s_read
 	struct s_read	*next;
 }					t_read;
 
-int	get_next_line(int const fd, char **line);
+int					get_next_line(int const fd, char **line);
 
 #endif
