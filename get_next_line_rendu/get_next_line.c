@@ -6,13 +6,13 @@
 /*   By: ebouther <ebouther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:04:35 by ebouther          #+#    #+#             */
-/*   Updated: 2015/12/03 15:07:18 by ebouther         ###   ########.fr       */
+/*   Updated: 2015/12/04 18:12:48 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_read	*ft_search_lst(t_read **lst, int fd)
+/*static t_read	*ft_search_lst(t_read **lst, int fd)
 {
 	t_read	*tmp;
 
@@ -24,6 +24,29 @@ static t_read	*ft_search_lst(t_read **lst, int fd)
 		tmp = tmp->next;
 	}
 	return (tmp);
+}*/
+
+static void	ft_lst_del(t_read **lst, int fd)
+{
+	t_read	*tmp;
+	t_read	*last_tmp;
+	
+	tmp = *lst;
+	while (tmp)
+	{
+		if (tmp->fd == fd)
+			break ;
+		last_tmp = tmp;
+		tmp = tmp->next;
+	}
+	if (tmp)
+	{
+		ft_putstr("goes there");
+		if (last_tmp)
+			last_tmp->next = tmp->next;
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
 static t_read	*ft_newlst(char *buf, int fd)
@@ -53,11 +76,20 @@ static t_read	*ft_newlst(char *buf, int fd)
 
 static t_read	*ft_ret_lst(int fd, char **line, t_read **lst)
 {
-	t_read *new;
+	t_read	*new;
+	t_read	*tmp;
 
 	if (fd < 0 || !line)
 		return (NULL);
-	if (!(new = ft_search_lst(lst, fd)))
+	tmp = *lst;
+	while (tmp)
+	{
+		if (tmp->fd == fd)
+			break ;
+		tmp = tmp->next;
+	}
+	new = tmp;
+	if (!(new)) //= ft_search_lst(lst, fd)))
 	{
 		new = ft_newlst(ft_strnew(0), fd);
 		new->next = *lst;
@@ -105,5 +137,6 @@ int				get_next_line(int const fd, char **line)
 		}
 		*line = ft_strjoin(*line, cpy);
 	}
+	ft_lst_del(&lst, fd);
 	return (ret);
 }
