@@ -6,7 +6,7 @@
 /*   By: ebouther <ebouther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:04:35 by ebouther          #+#    #+#             */
-/*   Updated: 2015/12/04 18:12:48 by ebouther         ###   ########.fr       */
+/*   Updated: 2015/12/04 22:11:17 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 	return (tmp);
 }*/
 
-static void	ft_lst_del(t_read **lst, int fd)
+/*static void	ft_lst_del(t_read **lst, int fd)
 {
 	t_read	*tmp;
 	t_read	*last_tmp;
@@ -47,7 +47,7 @@ static void	ft_lst_del(t_read **lst, int fd)
 		free(tmp);
 		tmp = NULL;
 	}
-}
+}*/
 
 static t_read	*ft_newlst(char *buf, int fd)
 {
@@ -137,6 +137,6 @@ int				get_next_line(int const fd, char **line)
 		}
 		*line = ft_strjoin(*line, cpy);
 	}
-	ft_lst_del(&lst, fd);
+	//ft_lst_del(&lst, fd);
 	return (ret);
 }
