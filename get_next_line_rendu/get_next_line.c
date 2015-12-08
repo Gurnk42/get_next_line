@@ -6,7 +6,7 @@
 /*   By: ebouther <ebouther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/03 15:04:35 by ebouther          #+#    #+#             */
-/*   Updated: 2015/12/04 22:11:17 by ebouther         ###   ########.fr       */
+/*   Updated: 2015/12/08 13:00:11 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int				get_next_line(int const fd, char **line)
 	char			*cpy;
 	char			*str;
 
-	if ((tmp = ft_ret_lst(fd, line, &lst)) == NULL)
+	if (fd < 0 || !line || (tmp = ft_ret_lst(fd, line, &lst)) == NULL)
 		return (-1);
 	*line = ft_strnew(0);
 	ret = 1;
