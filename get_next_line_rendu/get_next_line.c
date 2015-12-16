@@ -5,49 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebouther <ebouther@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/03 15:04:35 by ebouther          #+#    #+#             */
-/*   Updated: 2015/12/08 13:00:11 by ebouther         ###   ########.fr       */
+/*   Created: 2015/12/15 19:37:40 by ebouther          #+#    #+#             */
+/*   Updated: 2015/12/16 12:33:47 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*static t_read	*ft_search_lst(t_read **lst, int fd)
+static t_read	*ft_search_lst(t_read **lst, int fd, int rm)
 {
 	t_read	*tmp;
+	t_read	*previous;
 
 	tmp = *lst;
+	previous = NULL;
 	while (tmp)
 	{
 		if (tmp->fd == fd)
+		{
+			if (rm == 1)
+			{
+				if (previous != NULL)
+					previous->next = tmp->next;
+				else
+					*lst = tmp->next;
+				ft_memdel((void **)(&tmp->buf));
+				ft_memdel((void **)(&tmp));
+			}
 			break ;
+		}
+		previous = tmp;
 		tmp = tmp->next;
 	}
 	return (tmp);
-}*/
-
-/*static void	ft_lst_del(t_read **lst, int fd)
-{
-	t_read	*tmp;
-	t_read	*last_tmp;
-	
-	tmp = *lst;
-	while (tmp)
-	{
-		if (tmp->fd == fd)
-			break ;
-		last_tmp = tmp;
-		tmp = tmp->next;
-	}
-	if (tmp)
-	{
-		ft_putstr("goes there");
-		if (last_tmp)
-			last_tmp->next = tmp->next;
-		free(tmp);
-		tmp = NULL;
-	}
-}*/
+}
 
 static t_read	*ft_newlst(char *buf, int fd)
 {
@@ -76,20 +67,11 @@ static t_read	*ft_newlst(char *buf, int fd)
 
 static t_read	*ft_ret_lst(int fd, char **line, t_read **lst)
 {
-	t_read	*new;
-	t_read	*tmp;
+	t_read *new;
 
 	if (fd < 0 || !line)
 		return (NULL);
-	tmp = *lst;
-	while (tmp)
-	{
-		if (tmp->fd == fd)
-			break ;
-		tmp = tmp->next;
-	}
-	new = tmp;
-	if (!(new)) //= ft_search_lst(lst, fd)))
+	if (!(new = ft_search_lst(lst, fd, 0)))
 	{
 		new = ft_newlst(ft_strnew(0), fd);
 		new->next = *lst;
@@ -115,13 +97,13 @@ static char		*ft_read_file(int *ret, t_read *lst, const int fd)
 
 int				get_next_line(int const fd, char **line)
 {
-	static t_read	*lst;
+	static t_read	*lst = NULL;
 	t_read			*tmp;
 	int				ret;
 	char			*cpy;
 	char			*str;
 
-	if (fd < 0 || !line || (tmp = ft_ret_lst(fd, line, &lst)) == NULL)
+	if ((tmp = ft_ret_lst(fd, line, &lst)) == NULL)
 		return (-1);
 	*line = ft_strnew(0);
 	ret = 1;
@@ -137,6 +119,6 @@ int				get_next_line(int const fd, char **line)
 		}
 		*line = ft_strjoin(*line, cpy);
 	}
-	//ft_lst_del(&lst, fd);
+	ft_search_lst(&lst, fd, 1);
 	return (ret);
 }

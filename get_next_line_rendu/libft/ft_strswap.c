@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/23 16:31:47 by ebouther          #+#    #+#             */
-/*   Updated: 2015/12/16 12:06:14 by ebouther         ###   ########.fr       */
+/*   Created: 2015/11/24 14:48:36 by ebouther          #+#    #+#             */
+/*   Updated: 2015/11/24 16:21:59 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include "libft.h"
-# define BUFF_SIZE 32
+#include "libft.h"
 
-typedef struct		s_read
+char	*ft_strswap(char *str)
 {
-	char			*buf;
-	int				fd;
-	struct s_read	*next;
-}					t_read;
+	char	tmp;
+	int		i;
+	size_t	len;
 
-int					get_next_line(int const fd, char **line);
-
-#endif
+	len = ft_strlen(str) - 1;
+	i = 0;
+	while (i < (int)(len / 2))
+	{
+		tmp = str[i];
+		str[i] = str[len - i];
+		str[len - i] = tmp;
+		i++;
+	}
+	return (str);
+}

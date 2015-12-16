@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isprime.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/23 16:31:47 by ebouther          #+#    #+#             */
-/*   Updated: 2015/12/16 12:06:14 by ebouther         ###   ########.fr       */
+/*   Created: 2015/11/30 13:15:40 by ebouther          #+#    #+#             */
+/*   Updated: 2015/11/30 13:32:02 by ebouther         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <unistd.h>
-# include "libft.h"
-# define BUFF_SIZE 32
+#include "libft.h"
 
-typedef struct		s_read
+int	ft_isprime(int n)
 {
-	char			*buf;
-	int				fd;
-	struct s_read	*next;
-}					t_read;
+	int i;
 
-int					get_next_line(int const fd, char **line);
-
-#endif
+	i = 5;
+	if (n <= 1)
+		return (0);
+	else if (n <= 3)
+		return (1);
+	else if (n % 2 == 0 || n % 3 == 0)
+		return (0);
+	while (i * i <= n)
+	{
+		if (n % i == 0 || (n % (i + 2)) == 0)
+			return (0);
+		i = i + 6;
+	}
+	return (1);
+}
