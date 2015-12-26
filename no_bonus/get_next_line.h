@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebouther <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 14:26:28 by ebouther          #+#    #+#             */
-/*   Updated: 2015/11/24 15:20:52 by ebouther         ###   ########.fr       */
+/*   Created: 2015/11/23 16:31:47 by ebouther          #+#    #+#             */
+/*   Updated: 2015/12/03 17:15:42 by hbeaujou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# include <unistd.h>
+# include "libft.h"
+# define BUFF_SIZE 1024
 
-char	*ft_strrev(char *str)
-{
-	char	*rev;
-	int		i;
+int	get_next_line(int const fd, char **line);
 
-	i = 0;
-	rev = ft_strnew(ft_strlen(str));
-	if (rev)
-	{
-		rev = ft_strcpy(rev, ft_strswap(str));
-		return (rev);
-	}
-	return (NULL);
-}
+#endif
